@@ -186,4 +186,27 @@ window.addEventListener('DOMContentLoaded', function() {
       launchConfetti();
     });
   }
+
+  // Hidden keyboard sequence detection
+  let typedKeys = '';
+  const secretCode = 'DENISE';
+  
+  document.addEventListener('keydown', function(e) {
+    typedKeys += e.key.toUpperCase();
+    
+    // Keep only the last N characters where N is the length of the secret code
+    if (typedKeys.length > secretCode.length) {
+      typedKeys = typedKeys.substring(typedKeys.length - secretCode.length);
+    }
+    
+    // Check if the secret code was typed
+    if (typedKeys === secretCode) {
+      // Create and trigger download
+      const link = document.createElement('a');
+      link.href = 'HeartScene.mp4';
+      link.download = 'HeartScene.mp4';
+      link.click();
+      typedKeys = ''; // Reset the sequence
+    }
+  });
 });
